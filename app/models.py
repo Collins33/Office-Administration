@@ -37,7 +37,7 @@ class Employee(db.Model,UserMixin):
 
 
     def __repr__(self):
-        return '<Employee: {}>'.format(self.username)'  
+        return '<Employee: {}>'.format(self.username)
 
 
 #set up the user loader
