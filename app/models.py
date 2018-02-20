@@ -50,14 +50,14 @@ class Department(db.Model):
 
     #database table
 
-    __tablename__= " departments "
+    __tablename__= "departments"
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(60), unique=True)
     description = db.Column(db.String(200))
 
     #department has a one to many relationship with Employee
-    employees=db.relationship('Employee',backref='department',lazy='dynamic')
+    employees=db.relationship('Employee',backref='departments',lazy='dynamic')
 
 
     def __repr__(self):
@@ -69,10 +69,10 @@ class Role(db.Model):
     #database table
     __tablename__='roles'
 
-    d = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(60), unique=True)
     description = db.Column(db.String(200))
-    employees = db.relationship('Employee', backref='role',
+    employees = db.relationship('Employee', backref='roles',
                                 lazy='dynamic')
 
     def __repr__(self):
