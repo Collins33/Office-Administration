@@ -13,4 +13,4 @@ def homepage():
 @login_required
 def dashboard():
     #render dashboard template on /dashboard route
-    return render_template('home/dashboard.html',title='dashboard')    
+    return render_template('home/dashboard.html',title="dashboard")    
