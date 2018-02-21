@@ -77,4 +77,19 @@ def login():
 
 
     #load the login template
-    return render_template('auth/login.html', form=form, title='Login')        
+    return render_template('auth/login.html', form=form, title='Login')
+
+
+@auth.route('/logout')
+@login_required
+def logout():
+    #this logs out users who are logged out
+    # this is through the logout route
+    # you must be logged in to access the route
+    logout_user()
+
+    #inform them that they have been logged out
+    flash("You have been logged out")
+
+    #then redirect user to login route
+    return redirect(url_for('auth.login'))        
