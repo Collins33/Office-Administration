@@ -37,5 +37,12 @@ class RegistrationForm(FlaskForm):
         #THIS CHECKS IF THE USERNAME EXISTS IN THE DATABASE
         if Employee.query.filter_by(username=field.data).first():
             #RAISE VALIDATION ERROR IF IT EXISTS
-            raise ValidationError("Username already exists")        
+            raise ValidationError("Username already exists")
+
+
+class LoginForm(FlaskForm):
+    #form for users to log-in
+    email=StringField('Email', validators=[DataRequired(),Email()])
+    password=PasswordField('Password',validators=[DataRequired()])
+    submit=SubmitField('Login')                    
 
