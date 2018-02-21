@@ -42,4 +42,39 @@ def register():
         #redirect to the login page
         return redirect(url_for('auth.login'))
 
-    return render_template('auth/register.html', form=form, title='Register')    
+    return render_template('auth/register.html', form=form, title='Register')
+
+
+
+
+@auth.route('/login', methods=['GET','POST'])
+def login():
+    #handle requests to login route
+    # if employee queried exits,log in
+
+    #create loginform object
+    form=LoginForm()
+
+    #check if form is validated
+    if form.validate_on_submit():
+        #if validate, query to get user who matches the email in the form
+        employee=Employee.query.filter_by(email=form.email.data).first()
+
+        #check if employee exists
+        #check if the queried employee has password equal to what was on the form
+        #verify_password compares the password in the form and the one in the database
+        if employee is not None and employee.verify_password(form.password.data):
+            #if the credentials meet the requirements, log them in
+            #login_user is flask method to log-in user
+            login_user(employee)
+
+            #after logging them in,direct them to the dashboard view function
+            return redirect(url_for('home.dashboard'))
+
+        #if login details are false
+        # send a flash message
+        flash('Invalid email or password')
+
+
+    #load the login template
+    return render_template('auth/login.html', form=form, title='Login')        
