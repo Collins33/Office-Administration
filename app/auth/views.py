@@ -39,7 +39,7 @@ def register():
         #flash message
         flash("You have successfully registered, You can now log in")
 
-        #redirect to the login page
+        #redirect to the lo
         return redirect(url_for('auth.login'))
 
     return render_template('auth/register.html', form=form, title='Register')
@@ -68,8 +68,13 @@ def login():
             #login_user is flask method to log-in user
             login_user(employee)
 
-            #after logging them in,direct them to the dashboard view function
-            return redirect(url_for('home.dashboard'))
+            #after logging them in,direct them to the dashboard based on if they are admin
+
+            if employee.is_admin:
+                return redirect(url_for('home.admin_dashboard'))
+
+            else:
+                return redirect(url_for('home.dashboard'))    
 
         #if login details are false
         # send a flash message
