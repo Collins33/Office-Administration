@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_migrate import Migrate
 from flask_bootstrap import Bootstrap
+from flask_debug import Debug
 
 #LOCAL IMPORT
 from config import app_config
@@ -22,6 +23,7 @@ def create_app(config_name):
     app.config.from_pyfile('config.py')
     db.init_app(app)
     Bootstrap(app)
+    Debug(app)
 
     login_manager.init_app(app)
     login_manager.login_message="YOU MUST BE LOGGED IN"
@@ -33,10 +35,10 @@ def create_app(config_name):
     
     #registering the blueprints
     from .admin import admin as admin_blueprint
-    app.register_blueprint(admin_blueprint,url_prefix="/admin")
+    app.register_blueprint(admin_blueprint, url_prefix='/admin')
 
     from .auth import auth as auth_blueprint
-    app.register_blueprint(admin_blueprint)
+    app.register_blueprint(auth_blueprint)
 
     from .home import home as home_blueprint
     app.register_blueprint(home_blueprint)

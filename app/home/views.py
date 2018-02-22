@@ -4,13 +4,17 @@ from flask_login import login_required
 
 from . import home#import the blueprint
 
-@home.route('/')#route to render this view funtion
+@home.route('/')
 def homepage():
-    return render_template('home/index.html',title="welcome")
+    """
+    Render the homepage template on the / route
+    """
+    return render_template('home/index.html', title="Welcome")
 
-
-@home.route('/dashboard')#this displays the dashboard
+@home.route('/dashboard')
 @login_required
 def dashboard():
-    #render dashboard template on /dashboard route
-    return render_template('home/dashboard.html',title="dashboard")    
+    """
+    Render the dashboard template on the /dashboard route
+    """
+    return render_template('home/dashboard.html', title="Dashboard")   

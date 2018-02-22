@@ -1,11 +1,11 @@
-from flask import flash,redirect,render_template,url_for
-from flask_login import login_required,login_user,logout_user
+from flask import flash, redirect, render_template, url_for
+from flask_login import login_required, login_user, logout_user
 
 
 #import auth blueprint
 from . import auth
 #import the forms class
-from forms import RegistrationForm,LoginForm
+from .forms import RegistrationForm,LoginForm
 #import the db
 from .. import db
 #import the models
