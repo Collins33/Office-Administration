@@ -6,5 +6,5 @@ from wtforms.validators import DataRequired
 class DepartmentForm(FlaskForm):
     #for the admin to add or edit a department
     name=StringField('Name',validators=[DataRequired()])
-    department=StringField('Department',validators=[DataRequired()])
+    description=StringField('Department',validators=[DataRequired()])
     submit=SubmitField('submit')
