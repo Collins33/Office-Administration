@@ -100,4 +100,27 @@ def edit_department(id):
     form.description.data=department.description
 
     #render the template
-    return render_template("/admin/departments/department.html", action="Edit", add_department=add_department,form=form,department=department,title="Edit department")                                       
+    return render_template("/admin/departments/department.html", action="Edit", add_department=add_department,form=form,department=department,title="Edit department")
+
+
+
+
+#the view function to delete a department
+@admin.route("/departments/delete/<int:id>", method=["GET","POST"])
+@login_required
+def delete_department(id):
+    #check if you are an admin
+    check_admin()
+
+    #query db for the department
+    department=Department.query.get_or_404(id)
+
+    #delete the department from the db
+    db.session.delete(department)
+    db.session.commit()
+    flash("You have successfully deleted the department")
+
+    #redirect to the view function with the list of departments
+    return redirect(url_for("admin.list_department"))
+
+    return render_template(title="Delete Department")
