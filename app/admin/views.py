@@ -66,4 +66,38 @@ def add_department():
     #load the template with the form to add department
     return render_template('admin/departments/department.html', action="Add",
                            add_department=add_department, form=form,
-                           title="Add Department")             
+                           title="Add Department")
+
+
+
+admin.route("/departments/edit/<int:id>", method=['GET','POST'])
+@login_required
+def edit_department(id):
+    #the route to edit a department
+    #it takes the id as parameter which will be passed to it in the template
+
+    #check if user is an admin
+    check_admin()
+
+    add_department=False
+    
+    #query the database for the department with the passed id
+    department=Department.query.get_or_404(id)
+
+    #create a form object
+    form=DepartmentForm(obj=Department)
+
+    #check if form is validate
+    if form.validate_on_submit():
+        #edit the department info with what is in the form
+        department.name=form.name.data #name that is in the form
+        department.description=form.name.description #description of in the form
+        db.session.commit()
+
+        flash("You have successfully edited the department")
+    #replace the form data with info from the department
+    form.name.data=department.name
+    form.description.data=department.description
+
+    #render the template
+    return render_template("/admin/departments/department.html", action="Edit", add_department=add_department,form=form,department=department,title="Edit department")                                       
