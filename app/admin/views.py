@@ -70,7 +70,7 @@ def add_department():
 
 
 
-admin.route("/departments/edit/<int:id>", method=['GET','POST'])
+@admin.route("/departments/edit/<int:id>", methods=['GET','POST'])
 @login_required
 def edit_department(id):
     #the route to edit a department
@@ -106,7 +106,7 @@ def edit_department(id):
 
 
 #the view function to delete a department
-@admin.route("/departments/delete/<int:id>", method=["GET","POST"])
+@admin.route("/departments/delete/<int:id>", methods=["GET","POST"])
 @login_required
 def delete_department(id):
     #check if you are an admin
