@@ -16,7 +16,7 @@
 <div class="row">
     {% if departments%}
     {% for department in departments%}
-    <div class="col-lg-4">
+    <div class="col-lg-4 well">
      <h1 class="text-center">{{department.name}}</h1>
     </div>
     {%endfor%}
@@ -25,7 +25,10 @@
     No DEPARTMENTS AVAILABLE
     </h1>
     {%endif%}
-    <a href="{{url_for('admin.add_department')}}"><button class="btn btn-alert">ADD DEPARTMENT</button></a>
+    
+</div>
+<div class="row">
+    <a href="{{url_for('admin.add_department')}}"><button class="btn btn-default btn-lg add-dept-button">ADD DEPARTMENT</button></a>
 </div>
 </div>
 
