@@ -116,7 +116,9 @@ p.copyright {
   height: 100%;
   margin: 0 auto -4em;
 }
-
+.departments{
+    margin-top: 100px;
+}
 </style>
 <body>
     <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
@@ -135,7 +137,7 @@ p.copyright {
                         {% if current_user.is_authenticated %}
                           {% if current_user.is_admin %}
                             <li><a href="{{ url_for('home.admin_dashboard') }}">Dashboard</a></li>
-                            <li><a href="#">Departments</a></li>
+                            <li><a href="{{url_for('admin.list_department')}}">Departments</a></li>
                             <li><a href="#">Roles</a></li>
                             <li><a href="#">Employees</a></li>
                           {% else %}

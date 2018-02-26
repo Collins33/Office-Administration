@@ -1,0 +1,38 @@
+{% import "bootstrap/utils.html" as utils%}
+{%extends 'base.html'%}
+{% block title %}departments{% endblock %}
+
+{%block body%}
+<div class="container departments">
+<div class="row">
+        {{ utils.flashed_messages() }}
+</div>
+
+<div class="row">
+    <h1 class="text-center">
+      DEPARTMENTS
+    </h1>
+</div>
+<div class="row">
+    {% if departments%}
+    {% for department in departments%}
+    <div class="col-lg-4">
+     <h1 class="text-center">{{department.name}}</h1>
+    </div>
+    {%endfor%}
+    {%else%}
+    <h1 class="text-center">
+    No DEPARTMENTS AVAILABLE
+    </h1>
+    {%endif%}
+    <a href="{{url_for('admin.add_department')}}"><button class="btn btn-alert">ADD DEPARTMENT</button></a>
+</div>
+</div>
+
+
+
+
+
+
+
+{%endblock%}
