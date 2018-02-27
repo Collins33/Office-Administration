@@ -219,4 +219,27 @@ def edit_roles(id):
     form.description.data=role.description
     form.name.data=role.name
 
-    return render_template('admin/roles/role.html', add_role=add_role, form=form, title="Edit role")            
+    return render_template('admin/roles/role.html', add_role=add_role, form=form, title="Edit role")
+
+
+#view function to delete a role
+@admin.route("roles/delete/<int:id>" methods=["POST","GET"]) 
+@login_required
+def delete_role(id):
+    #check if user an admin
+    check_admin()
+
+    #query the database for the role that matches the id
+    role=Role.query.get_or_404(id)
+
+    #delete the role from the db
+    db.session.delete(role)
+    db.session.commit()
+
+    flash("You have successfully deleted the role")
+
+    #redirect to the view function with all the roles
+    return redirect(url_for("admin.list_roles"))
+
+    return render_template(title="Delete role")
+
