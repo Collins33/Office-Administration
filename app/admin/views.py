@@ -132,9 +132,14 @@ def delete_department(id):
 
 
 #ROLE VIEW FUNCTION
+
+
 @admin.route("/roles")
 @login_required
 def list_roles():
+
+    #check if user is an admin
+    check_admin()
     #list all roles
 
     #query db to get all roles
@@ -142,3 +147,38 @@ def list_roles():
 
     #render the template
     return render_template("admin/roles/role.html",title="All roles",roles=roles)
+
+
+
+@admin.route("/roles/add", methods=["POST","GET"])
+@login_required
+def add_role():
+    #check if a user is an admin
+    check_admin()
+
+    add_role=True
+
+    #create instance of roleform
+    form=RoleForm()
+
+    #check if form is valid
+    if form.validate_on_submit():
+        #create role object from form data
+        role=Role(name=form.name.data, description=form.description.data)
+
+        #add role to database if it does not exist
+        try:
+            db.session.add(role)
+            db.session.commit()
+            #confirmation if added well
+            flash("You have added a role")
+        except:
+            #incase the role exists
+            flash("The role already exists")
+
+        #redirect to the page with all the roles
+        return redirect(url_for("admin.list_roles"))
+
+
+    #render the role template
+    return render_template("admin/roles/role.html",add_role=add_role,form=form,title="Add role")            
