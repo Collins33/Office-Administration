@@ -8,3 +8,12 @@ class DepartmentForm(FlaskForm):
     name=StringField('Name',validators=[DataRequired()])
     description=StringField('Description',validators=[DataRequired()])
     submit=SubmitField('submit')
+
+
+
+
+#create the form to add the roles
+class RoleForm(FlaskForm):
+    name=StringField('name',validators=[DataRequired()])
+    description=StringField('description',validators=[DataRequired()])
+    submit=SubmitField('submit')    
