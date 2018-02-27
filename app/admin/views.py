@@ -181,4 +181,42 @@ def add_role():
 
 
     #render the role template
-    return render_template("admin/roles/role.html",add_role=add_role,form=form,title="Add role")            
+    return render_template("admin/roles/role.html",add_role=add_role,form=form,title="Add role")
+
+
+#view function to edit a role
+@admin.route("/roles/edit/<int:id>" methods=["POST","GET"])
+@login_required
+def edit_roles(id):
+
+    #check admin
+    check_admin()
+
+    add_role=False
+
+    #get the specific role that matches the id
+    role=Role.query.get_or_404(id)#throw 404 error if the role does not exist
+    #create roleform object
+    form=RoleForm(obj=role)
+
+    #validate the form
+    if form.validate_on_submit():
+        #replace role name in db with the one in the form
+        role.name=form.name.data
+        #replace role desc in db with the one in the form
+        role.description=form.description.data
+
+        #add the new role to the db
+        db.session.add(role)
+        db.session.commit
+
+        #confirmation message
+        flash("You have successfully updated the role")
+
+        #redirect to the role_list
+        return redirect(url_for("admin.list_roles"))
+
+    form.description.data=role.description
+    form.name.data=role.name
+
+    return render_template('admin/roles/role.html', add_role=add_role, form=form, title="Edit role")            
