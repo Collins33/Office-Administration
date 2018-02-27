@@ -5,11 +5,11 @@ from flask_login import current_user, login_required
 #import admin blueprint
 from . import admin
 #import the forms class
-from .forms import DepartmentForm
+from .forms import DepartmentForm, RoleForm
 #import the db
 from .. import db
 #import the models
-from ..models import Department
+from ..models import Department,Role
 
 def check_admin():
     #prevent users who are not admin from acessing the page
@@ -17,6 +17,8 @@ def check_admin():
         abort(403)
 
 
+
+#DEPARTMENT VIEW FUNCTIONS
 #show all departments
 @admin.route('/departments', methods=['POST', 'GET'])
 @login_required
@@ -124,3 +126,19 @@ def delete_department(id):
     return redirect(url_for("admin.list_department"))
 
     return render_template(title="Delete Department")
+
+
+
+
+
+#ROLE VIEW FUNCTION
+@admin.route("/roles")
+@login_required
+def list_roles():
+    #list all roles
+
+    #query db to get all roles
+    roles=Role.query.all()
+
+    #render the template
+    return render_template("admin/roles/role.html",title="All roles",roles=roles)
