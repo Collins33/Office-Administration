@@ -18,8 +18,8 @@
     {% for department in departments%}
     <div class="col-lg-4 well">
      <h1 class="text-center">{{department.name}}</h1>
-     <!-- <a href="{{url_for('admin.edit_department', id=department.id)}}"><button class="btn btn-info">Edit</button></a>
-     <button class="btn btn-info">Delete</button> -->
+     <a href="{{url_for('admin.edit_department', id=department.id)}}"><button class="btn btn-info">Edit</button></a>
+     <a href="{{url_for('admin.delete_department', id=department.id)}}"><button class="btn btn-info">Delete</button></a>
     </div>
     {%endfor%}
     {%else%}
